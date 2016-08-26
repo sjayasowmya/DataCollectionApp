@@ -2,6 +2,25 @@
     <string name="app_name">TNPL Data</string>
     <string name="team_prompt">Choose a Team</string>
 
+    <!--Profile activity-->
+
+
+    <string name="surveyor_name">Enter surveyor name .</string>
+    <string name="surveyor_date">Enter surveyor date .</string>
+    <string name="location">Enter location.</string>
+    <string name="match_name">Enter match name.</string>
+    <string name="name">Enter your name.</string>
+    <string name="gender">Enter your gender.</string>
+    <string name="age">Enter your age.</string>
+    <string name="from_location">Enter where are you from.</string>
+    <string name="phone_no"> Enter your phone number .</string>
+    <string name="email">Enter your email. </string>
+    <string name="fev_team">Enter your fev. team .</string>
+    <string name="profession">Enter your profesion .</string>
+    <string name="education">Enter your education.</string>
+
+
+
     <string-array name="team_array">
         <item>Tuti Patriots </item>
         <item>Dindigul Dragons</item>

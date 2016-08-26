@@ -48,7 +48,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
 
 
         holder.iv_delete.setTag(position);
-        holder.tv_name.setText(dataList.get(position).name);
+        holder.tv_name.setText(dataList.get(position).mname);
 
         holder.iv_delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +66,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        listener.nameToChnge(dataList.get((Integer) view.getTag()).number);
+                        listener.nameToChnge(dataList.get((Integer) view.getTag()).mphone);
 
                     }
                 });

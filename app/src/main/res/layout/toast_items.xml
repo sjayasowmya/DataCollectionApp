@@ -18,6 +18,6 @@
 		android:textStyle="bold"
 		android:typeface="serif"
 		android:textSize="14sp"
-        android:text="Helooooooooooo!!!" />
+        android:text="Hello!!!" />
     
 </LinearLayout>

@@ -18,7 +18,7 @@
         android:paddingLeft="5dp"
         android:imeOptions="actionNext"
         android:singleLine="true"
-        android:inputType="text"
+         android:inputType="textCapWords"
         android:layout_width="match_parent"
         android:layout_height="45dp" />
     <EditText
@@ -28,7 +28,7 @@
         android:singleLine="true"
         android:hint="Enter your Age"
         android:imeOptions="actionNext"
-        android:inputType="text"
+        android:inputType="number"
         android:background="@drawable/rounded_edittext"
         android:paddingLeft="5dp"
         android:layout_width="match_parent"
@@ -41,7 +41,7 @@
         android:singleLine="true"
         android:id="@+id/et_userid"
         android:imeOptions="actionNext"
-        android:inputType="text"
+        android:inputType="textEmailAddress"
         android:hint="Enter your email id"
         android:layout_width="match_parent"
         android:layout_height="45dp" />

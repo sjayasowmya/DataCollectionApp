@@ -1,3 +1,4 @@
+
 package fanzone.datacollection;
 
 
@@ -20,7 +21,7 @@ public class MainActivity extends Activity {
     EditText et_name, et_age, et_place, et_userid, et_number;
     Spinner SpinnerTeam;
     Button btn_next;
-    DbHelper dbHelper;
+    //DbHelper dbHelper;
     String spTeam;
 
     @Override
@@ -33,7 +34,7 @@ public class MainActivity extends Activity {
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 
 
-        dbHelper = DbHelper.getInstance(getApplicationContext());
+        //dbHelper = DbHelper.getInstance(getApplicationContext());
 
         et_name = (EditText) findViewById(R.id.et_name);
         et_age = (EditText) findViewById(R.id.et_age);
@@ -45,7 +46,7 @@ public class MainActivity extends Activity {
         SpinnerTeam = (Spinner) findViewById(R.id.spinner1);
         spTeam = SpinnerTeam.getSelectedItem().toString();
 
-        btn_next.setOnClickListener(new View.OnClickListener() {
+      /*  btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 UserData userData = new UserData();
@@ -86,7 +87,7 @@ public class MainActivity extends Activity {
 
             }
         });
-
+*/
     }
 
 }

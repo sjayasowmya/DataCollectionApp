@@ -12,7 +12,7 @@ import android.widget.Button;
 
 public class UserDetail extends Activity implements Listener {
     RecyclerView recyclerView;
-    DbHelper dbHelper;
+   DataBaseHelper dbHelper;
     ListAdapter adapter;
     Button add;
 
@@ -24,7 +24,7 @@ public class UserDetail extends Activity implements Listener {
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 
 
-        dbHelper = DbHelper.getInstance(getApplicationContext());
+        dbHelper = DataBaseHelper.getInstance(getApplicationContext());
 
         recyclerView = (RecyclerView) findViewById(R.id.rv_contactlist);
         adapter = new ListAdapter(this, dbHelper.getAllUser());
@@ -36,7 +36,7 @@ public class UserDetail extends Activity implements Listener {
             @Override
             public void onClick(View view) {
 
-                Intent add = new Intent(getApplicationContext(),MainActivity.class);
+                Intent add = new Intent(getApplicationContext(),Profile.class);
                 startActivity(add);
             }
         });
@@ -45,14 +45,14 @@ public class UserDetail extends Activity implements Listener {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, Profile.class);
         startActivity(intent);
         finish();
     }
 
     @Override
-    public void nameToChnge(String number) {
-        dbHelper.deleteRow(number);
+    public void nameToChnge(String mphone) {
+        dbHelper.deleteRow(mphone);
 
         adapter = new ListAdapter(this, dbHelper.getAllUser());
         recyclerView.setAdapter(adapter);

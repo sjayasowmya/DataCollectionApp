@@ -1,3 +1,4 @@
+/*
 package fanzone.datacollection;
 
 import android.content.ContentValues;
@@ -11,9 +12,11 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+*/
 /**
  * Created by jayasowmya on 25/8/16.
- */
+ *//*
+
 public class DbHelper extends SQLiteOpenHelper {
 
     private static final String TAG = "DbHelper";
@@ -56,11 +59,13 @@ public class DbHelper extends SQLiteOpenHelper {
 
     }
 
-    /*
+    */
+/*
      Called when the database needs to be upgraded.
      This method will only be called if a database already exists on disk with the same DATABASE_NAME,
      but the DATABASE_VERSION is different than the version of the database that exists on disk.
-     */
+     *//*
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         if (oldVersion != newVersion) {
@@ -85,17 +90,21 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
 
-    /**
+    */
+/**
      * Constructor should be private to prevent direct instantiation.
      * Make a call to the static method "getInstance()" instead.
-     */
+     *//*
+
     private DbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-      /*
+      */
+/*
    Insert a  user detail into database
-   */
+   *//*
+
 
     public void insertUserDetail(UserData userData) {
 
@@ -124,9 +133,11 @@ public class DbHelper extends SQLiteOpenHelper {
 
     }
 
-     /*
+     */
+/*
    fetch all data from UserTable
-    */
+    *//*
+
 
     public List<UserData> getAllUser() {
 
@@ -164,9 +175,11 @@ public class DbHelper extends SQLiteOpenHelper {
 
     }
 
-    /*
+    */
+/*
    Delete single row from UserTable
-     */
+     *//*
+
     void deleteRow(String number) {
         SQLiteDatabase db = getWritableDatabase();
 
@@ -185,4 +198,4 @@ public class DbHelper extends SQLiteOpenHelper {
 
 
 
-    }
+    }*/
