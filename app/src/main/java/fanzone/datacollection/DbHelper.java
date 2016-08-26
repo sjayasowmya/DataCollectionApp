@@ -49,8 +49,8 @@ public class DbHelper extends SQLiteOpenHelper {
                 NAME + " TEXT," +
                 COLLEGE + " TEXT," +
                 PLACE + " TEXT," +
-                NUMBER + " TEXT" +
-                TEAMNAME+"TEXT"+
+                NUMBER + " TEXT," +
+                TEAMNAME+" TEXT"+
                 ")";
         db.execSQL(CREATE_USERDETAIL_TABLE);
 
@@ -141,6 +141,7 @@ public class DbHelper extends SQLiteOpenHelper {
         try {
             if (cursor.moveToFirst()) {
                 do {
+
                     UserData userData = new UserData();
                     userData.name = cursor.getString(cursor.getColumnIndex(NAME));
                     userData.college = cursor.getString(cursor.getColumnIndex(COLLEGE));
@@ -148,7 +149,6 @@ public class DbHelper extends SQLiteOpenHelper {
                     userData.user_id = cursor.getString(cursor.getColumnIndex(USER_ID));
                     userData.number = cursor.getString(cursor.getColumnIndex(NUMBER));
                     userData.team=cursor.getString(cursor.getColumnIndex(TEAMNAME));
-
 
                     usersdetail.add(userData);
 
@@ -169,13 +169,13 @@ public class DbHelper extends SQLiteOpenHelper {
     /*
    Delete single row from UserTable
      */
-    void deleteRow(String name) {
+    void deleteRow(String number) {
         SQLiteDatabase db = getWritableDatabase();
 
 
         try {
             db.beginTransaction();
-            db.execSQL("delete from " + TABLE_USERdETAIL + " where name ='" + name + "'");
+            db.execSQL("delete from " + TABLE_USERdETAIL + " where number ='" + number + "'");
             db.setTransactionSuccessful();
         } catch (SQLException e) {
             Log.d(TAG, "Error while trying to delete  users detail");

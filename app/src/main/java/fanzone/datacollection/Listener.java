@@ -6,5 +6,5 @@ package fanzone.datacollection;
 
 public interface Listener {
 
-    void nameToChnge(String name);
+    void nameToChnge(String number);
 }

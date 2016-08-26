@@ -6,12 +6,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 
 public class UserDetail extends Activity implements Listener {
     RecyclerView recyclerView;
     DbHelper dbHelper;
     ListAdapter adapter;
+    Button add;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +30,16 @@ public class UserDetail extends Activity implements Listener {
         adapter = new ListAdapter(this, dbHelper.getAllUser());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        add = (Button) findViewById(R.id.add);
+
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent add = new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(add);
+            }
+        });
 
     }
     @Override
@@ -38,8 +51,8 @@ public class UserDetail extends Activity implements Listener {
     }
 
     @Override
-    public void nameToChnge(String name) {
-        dbHelper.deleteRow(name);
+    public void nameToChnge(String number) {
+        dbHelper.deleteRow(number);
 
         adapter = new ListAdapter(this, dbHelper.getAllUser());
         recyclerView.setAdapter(adapter);

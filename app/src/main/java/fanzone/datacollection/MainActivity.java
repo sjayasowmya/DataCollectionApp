@@ -5,11 +5,16 @@ import android.app.Activity;
 
 import android.os.Bundle;
 import android.content.Intent;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
     EditText et_name, et_age, et_place, et_userid, et_number;
@@ -39,46 +44,45 @@ public class MainActivity extends Activity {
         // addListenerOnSpinnerItemSelection();
         SpinnerTeam = (Spinner) findViewById(R.id.spinner1);
         spTeam = SpinnerTeam.getSelectedItem().toString();
+
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 UserData userData = new UserData();
 
-                if (!et_name.getText().toString().isEmpty()) {
-                    userData.name = et_name.getText().toString();
-                } else {
-                    userData.name = "";
-                }
-                if (!et_age.getText().toString().isEmpty()) {
-                    userData.college = et_age.getText().toString();
-                } else {
-                    userData.college = "";
-                }
-                if (!et_userid.getText().toString().isEmpty()) {
-                    userData.user_id = et_userid.getText().toString();
-                } else {
-                    userData.user_id = "";
-                }
-                if (!et_number.getText().toString().isEmpty()) {
-                    userData.number = et_number.getText().toString();
-                } else {
-                    userData.number = "";
-                }
-                if (!et_place.getText().toString().isEmpty()) {
-                    userData.place = et_place.getText().toString();
-                } else {
-                    userData.place = "";
-                }
-                if (!spTeam.isEmpty()) {
-                    userData.team = spTeam;
-                } else {
-                    userData.team= "";
+                userData.name = et_name.getText().toString();
+                userData.college = et_age.getText().toString();
+                userData.user_id = et_userid.getText().toString();
+                userData.number = et_number.getText().toString();
+                userData.place = et_place.getText().toString();
+                userData.team = spTeam;
+                if (!et_name.getText().toString().isEmpty()&& !et_age.getText().toString().isEmpty()
+                        && !et_userid.getText().toString().isEmpty()
+                       && !et_number.getText().toString().isEmpty() && !et_place.getText().toString().isEmpty() && !spTeam.isEmpty()) {
+
+                    dbHelper.insertUserDetail(userData);
+
+                    Intent intent = new Intent(MainActivity.this, UserDetail.class);
+                    startActivity(intent);
+
+                }else {
+
+                        LayoutInflater inflater = getLayoutInflater();
+                        View layout = inflater.inflate(R.layout.toast_items,
+                                (ViewGroup) findViewById(R.id.toast_layout_root));
+                        TextView text = (TextView) layout.findViewById(R.id.tostprint);
+                        text.setText("Please Fill All Field Before Submit !!!");
+                        Toast toast = new Toast(getApplicationContext());
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.setDuration(Toast.LENGTH_LONG);
+                        toast.setView(layout);
+                        toast.show();
+
                 }
 
-                dbHelper.insertUserDetail(userData);
 
-                Intent intent = new Intent(MainActivity.this, UserDetail.class);
-                startActivity(intent);
+
+
 
             }
         });

@@ -3,14 +3,17 @@ package fanzone.datacollection;
 /**
  * Created by jayasowmya on 25/8/16.
  */
+import android.app.AlertDialog;
 import android.content.Context;
 
+import android.content.DialogInterface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,8 +52,33 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
 
         holder.iv_delete.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-               listener.nameToChnge(dataList.get((Integer) v.getTag()).name);
+            public void onClick(final View view) {
+
+
+                LayoutInflater inflater = LayoutInflater.from(context);
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Delete Your Record !!!");
+                builder.setMessage("Do you want to delete this record?");
+                // builder.setView(subView);
+                AlertDialog alertDialog = builder.create();
+
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        listener.nameToChnge(dataList.get((Integer) view.getTag()).number);
+
+                    }
+                });
+
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //Toast.makeText(context, "Cancel", Toast.LENGTH_LONG).show();
+                    }
+                });
+
+                builder.show();
 
 
             }
