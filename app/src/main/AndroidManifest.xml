@@ -9,7 +9,8 @@
         android:supportsRtl="true"
 
         android:theme="@style/CustomTheme">
-        <activity android:name=".Profile">
+        <activity android:name=".Profile"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

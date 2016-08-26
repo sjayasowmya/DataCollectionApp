@@ -39,6 +39,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     private static final String FEVTEAM = "mfevteam";
     private static final String PROFESSION = "mprofession";
     private static final String EDUCATION="meducation";
+    private static final String TIME = "msystime";
 
 
     public DataBaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -61,7 +62,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 EMAIL + " TEXT," +
                 FEVTEAM + " TEXT," +
                 PROFESSION+" TEXT,"+
-                EDUCATION+" TEXT"+
+                EDUCATION+" TEXT ,"+
+                TIME+" TEXT "+
                 ")";
         db.execSQL(CREATE_USERDETAILS_TABLE);
 
@@ -128,6 +130,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             values.put(FEVTEAM,userData.mfevteam);
             values.put(PROFESSION,userData.mprofession);
             values.put(EDUCATION,userData.meducation);
+            values.put(TIME,userData.msys_time);
 
             db.insertOrThrow(TABLE_USERdETAILS, null, values);
             db.setTransactionSuccessful();
@@ -166,10 +169,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                     userData.mage=cursor.getString(cursor.getColumnIndex(AGE));
                     userData.mfromloc = cursor.getString(cursor.getColumnIndex(FROMLOCATION));
                     userData.mphone = cursor.getString(cursor.getColumnIndex(PHONE));
+                    userData.memail = cursor.getString(cursor.getColumnIndex(EMAIL));
                     userData.mfevteam = cursor.getString(cursor.getColumnIndex(FEVTEAM));
                     userData.mprofession = cursor.getString(cursor.getColumnIndex(PROFESSION));
                     userData.meducation=cursor.getString(cursor.getColumnIndex(EDUCATION));
-
+                    userData.msys_time=cursor.getString(cursor.getColumnIndex(TIME));
 
                     usersdetail.add(userData);
 

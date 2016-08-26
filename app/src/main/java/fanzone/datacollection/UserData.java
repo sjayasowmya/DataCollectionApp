@@ -12,7 +12,7 @@ import java.io.Serializable;
 public class UserData implements Serializable {
 
   //  String name,college,place,user_id,number,team;
-    String msurveyor,mlocation,mmatch,mname,mgender,mage,mfromloc,mphone,memail,mfevteam,mprofession,meducation;
+    String msurveyor,mlocation,mmatch,mname,mgender,mage,mfromloc,mphone,memail,mfevteam,mprofession,meducation,msys_time;
 
 
 }

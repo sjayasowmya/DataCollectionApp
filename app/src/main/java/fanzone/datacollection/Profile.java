@@ -15,6 +15,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 /**
  * Created by satya on 26/8/16.
  */
@@ -22,8 +27,11 @@ public class Profile extends Activity {
 
     private EditText surver_name, location, match, name, gender, age, from_loc, phone, email, fev_team, profession, education;
     DataBaseHelper dbHelper;
-    Button save, list;
+    private Button save, list;
+    private String sp_location,sp_match,sp_gender,sp_fevTeam,sp_profession,sp_education,sys_time;
     UserData userData;
+    private Calendar cal;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +56,245 @@ public class Profile extends Activity {
         profession = (EditText) findViewById(R.id.profession);
         education = (EditText) findViewById(R.id.education);
 
+        location.setOnClickListener(new View.OnClickListener() {
+
+            // add button listener
+
+            @Override
+            public void onClick(View view) {
+
+
+
+                final  String[] spinnerValues = {"MAC,Chennai","NPR College,Dindigul","ICL Ground,Tirunelveli"};
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(Profile.this);
+                builder.setTitle("Select Location");
+                builder.setSingleChoiceItems(spinnerValues, -1,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int position) {
+
+
+                                sp_location  = spinnerValues[position];
+
+                                location.setText(sp_location);
+
+                                dialog.cancel();
+
+                            }
+                        });
+                builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+                        // finish();
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.setCanceledOnTouchOutside(false);
+                alert.show();
+            }
+        });
+
+        match.setOnClickListener(new View.OnClickListener() {
+
+            // add button listener
+
+            @Override
+            public void onClick(View view) {
+
+
+
+                final  String[] spinnerValues = {"Chepauk vs Thoothukudi","Tiruvallur vs Karaikudi","Coimbatore vs Kancheepuram",
+                                                  "Dindigul vs Madurai"};
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(Profile.this);
+                builder.setTitle("Select Match");
+                builder.setSingleChoiceItems(spinnerValues, -1,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int position) {
+
+
+                                sp_match  = spinnerValues[position];
+
+                                match.setText(sp_match);
+
+                                dialog.cancel();
+
+                            }
+                        });
+                builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+                        // finish();
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.setCanceledOnTouchOutside(false);
+                alert.show();
+            }
+        });
+        gender.setText("Male");
+
+        gender.setOnClickListener(new View.OnClickListener() {
+
+            // add button listener
+
+            @Override
+            public void onClick(View view) {
+
+
+
+                final  String[] spinnerValues = {"Male","Female"};
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(Profile.this);
+                builder.setTitle("Select Gender");
+                builder.setSingleChoiceItems(spinnerValues, -1,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int position) {
+
+
+                                sp_gender  = spinnerValues[position];
+
+                                gender.setText(sp_gender);
+
+                                dialog.cancel();
+
+                            }
+                        });
+                builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+                        // finish();
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.setCanceledOnTouchOutside(false);
+                alert.show();
+            }
+        });
+
+        fev_team.setOnClickListener(new View.OnClickListener() {
+
+            // add button listener
+
+            @Override
+            public void onClick(View view) {
+
+                final  String[] spinnerValues = {"Chepauk","Coimbatore","Dindigul","Karaikudi","Kancheepuram","Madurai","Tiruvallur","Thoothukudi"};
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(Profile.this);
+                builder.setTitle("Select Team");
+                builder.setSingleChoiceItems(spinnerValues, -1,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int position) {
+
+
+                                sp_fevTeam  = spinnerValues[position];
+
+                                fev_team.setText(sp_fevTeam);
+
+                                dialog.cancel();
+
+                            }
+                        });
+                builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+                        // finish();
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.setCanceledOnTouchOutside(false);
+                alert.show();
+            }
+        });
+
+        profession.setOnClickListener(new View.OnClickListener() {
+
+            // add button listener
+
+            @Override
+            public void onClick(View view) {
+
+                final  String[] spinnerValues = {"Business","House wife","Service","Student","Sports"};
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(Profile.this);
+                builder.setTitle("Select Profession");
+                builder.setSingleChoiceItems(spinnerValues, -1,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int position) {
+
+
+                                sp_profession  = spinnerValues[position];
+
+                                profession.setText(sp_profession);
+
+                                dialog.cancel();
+
+                            }
+                        });
+                builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+                        // finish();
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.setCanceledOnTouchOutside(false);
+                alert.show();
+            }
+        });
+
+        education.setOnClickListener(new View.OnClickListener() {
+
+            // add button listener
+
+            @Override
+            public void onClick(View view) {
+
+
+
+                final  String[] spinnerValues = {"Under X","X","XII","Under Graduate","Post Graduate"};
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(Profile.this);
+                builder.setTitle("Select Education");
+                builder.setSingleChoiceItems(spinnerValues, -1,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int position) {
+
+
+                                sp_education  = spinnerValues[position];
+
+                                education.setText(sp_education);
+
+                                dialog.cancel();
+
+                            }
+                        });
+                builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+                        // finish();
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.setCanceledOnTouchOutside(false);
+                alert.show();
+            }
+        });
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+
+         sys_time = sdf.format(new Date());
+
+
+
+       // System.out.println("----Sys-time------"+sys_time);
         // button
 
         save = (Button) findViewById(R.id.btn_save);
@@ -70,8 +317,34 @@ public class Profile extends Activity {
                 userData.mfevteam = fev_team.getText().toString();
                 userData.mprofession = profession.getText().toString();
                 userData.meducation = education.getText().toString();
+                userData.msys_time = sys_time;
 
-                openDialog();
+
+                      if(!surver_name.getText().toString().isEmpty() && !location.getText().toString().isEmpty()
+                        && !match.getText().toString().isEmpty() && !name.getText().toString().isEmpty()
+                        && !gender.getText().toString().isEmpty() && !age.getText().toString().isEmpty()
+                        && !from_loc.getText().toString().isEmpty() && !phone.getText().toString().isEmpty()
+                        && !email.getText().toString().isEmpty() && !fev_team.getText().toString().isEmpty()
+                        && !profession.getText().toString().isEmpty() && !education.getText().toString().isEmpty()) {
+
+                          dbHelper.insertUserDetail(userData);
+
+                    openDialog();
+
+                }else {
+
+                    LayoutInflater inflater = getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.toast_items,
+                            (ViewGroup) findViewById(R.id.toast_layout_root));
+                    TextView text = (TextView) layout.findViewById(R.id.tostprint);
+                    text.setText("Please Fill All Field Before Submit !!!");
+                    Toast toast = new Toast(Profile.this);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.setDuration(Toast.LENGTH_LONG);
+                    toast.setView(layout);
+                    toast.show();
+
+                }
 
 
             }
@@ -88,9 +361,9 @@ public class Profile extends Activity {
   public void openDialog(){
 
       LayoutInflater inflater = LayoutInflater.from(Profile.this);
-      AlertDialog.Builder builder = new AlertDialog.Builder(Profile.this);
-      builder.setTitle("Save Your Record !!!");
-      builder.setMessage("Do you want to save another Record ?");
+      final AlertDialog.Builder builder = new AlertDialog.Builder(Profile.this);
+      builder.setTitle("Save Your Information");
+      builder.setMessage("Your Information Saved Successfully.");
       // builder.setView(subView);
       AlertDialog alertDialog = builder.create();
 
@@ -98,43 +371,17 @@ public class Profile extends Activity {
           @Override
           public void onClick(DialogInterface dialog, int which) {
 
-              if (!surver_name.getText().toString().isEmpty()&& !location.getText().toString().isEmpty()
-                      && !match.getText().toString().isEmpty() && !name.getText().toString().isEmpty()
-                      && !gender.getText().toString().isEmpty() && !age.getText().toString().isEmpty()
-                      && !from_loc.getText().toString().isEmpty() && !phone.getText().toString().isEmpty()
-                      && !email.getText().toString().isEmpty() && !fev_team.getText().toString().isEmpty()
-                      && !profession.getText().toString().isEmpty() && !education.getText().toString().isEmpty()) {
-
-                  dbHelper.insertUserDetail(userData);
-
-
-
-              }else {
-
-                  LayoutInflater inflater = getLayoutInflater();
-                  View layout = inflater.inflate(R.layout.toast_items,
-                          (ViewGroup) findViewById(R.id.toast_layout_root));
-                  TextView text = (TextView) layout.findViewById(R.id.tostprint);
-                  text.setText("Please Fill All Field Before Submit !!!");
-                  Toast toast = new Toast(Profile.this);
-                  toast.setGravity(Gravity.CENTER, 0, 0);
-                  toast.setDuration(Toast.LENGTH_LONG);
-                  toast.setView(layout);
-                  toast.show();
-
-              }
-
 
           }
       });
 
-      builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+     /* builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
           @Override
           public void onClick(DialogInterface dialog, int which) {
-              //Toast.makeText(context, "Cancel", Toast.LENGTH_LONG).show();
+              Toast.makeText(getApplicationContext(), "Cancel", Toast.LENGTH_LONG).show();
           }
       });
-
+*/
       builder.show();
 
 
