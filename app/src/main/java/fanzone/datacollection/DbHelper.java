@@ -140,7 +140,6 @@ public class DbHelper extends SQLiteOpenHelper {
         try {
             if (cursor.moveToFirst()) {
                 do {
-
                     UserData userData = new UserData();
                     userData.name = cursor.getString(cursor.getColumnIndex(NAME));
                     userData.college = cursor.getString(cursor.getColumnIndex(COLLEGE));
