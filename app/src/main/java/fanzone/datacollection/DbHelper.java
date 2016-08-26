@@ -32,6 +32,7 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String PLACE = "place";
     private static final String USER_ID = "userId";
     private static final String NUMBER = "number";
+    private static final String TEAMNAME="team";
 
 
 
@@ -49,6 +50,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 COLLEGE + " TEXT," +
                 PLACE + " TEXT," +
                 NUMBER + " TEXT" +
+                TEAMNAME+"TEXT"+
                 ")";
         db.execSQL(CREATE_USERDETAIL_TABLE);
 
@@ -108,6 +110,7 @@ public class DbHelper extends SQLiteOpenHelper {
             values.put(PLACE, userData.place);
             values.put(USER_ID, userData.user_id);
             values.put(NUMBER, userData.number);
+            values.put(TEAMNAME,userData.team);
 
             db.insertOrThrow(TABLE_USERdETAIL, null, values);
             db.setTransactionSuccessful();
@@ -144,6 +147,7 @@ public class DbHelper extends SQLiteOpenHelper {
                     userData.place = cursor.getString(cursor.getColumnIndex(PLACE));
                     userData.user_id = cursor.getString(cursor.getColumnIndex(USER_ID));
                     userData.number = cursor.getString(cursor.getColumnIndex(NUMBER));
+                    userData.team=cursor.getString(cursor.getColumnIndex(TEAMNAME));
 
 
                     usersdetail.add(userData);

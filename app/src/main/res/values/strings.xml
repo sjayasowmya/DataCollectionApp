@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">TNPL Data</string>
+    <string name="team_prompt">Choose a Team</string>
 
+    <string-array name="team_array">
+        <item>Tuti Patriots </item>
+        <item>Dindigul Dragons</item>
+        <item>Lyca Kovai Kings </item>
+        <item>Madurai Super Giants </item>
+        <item>Ruby Kanchi Warriors</item>
+        <item>VB Thiruvallur Veerans</item>
+        <item>Karaikudi Kaalai</item>
+        <item>Chepauk Super Gillies</item>
+    </string-array>
 </resources>

@@ -9,11 +9,14 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 public class MainActivity extends Activity {
     EditText et_name, et_age, et_place, et_userid, et_number;
+    Spinner SpinnerTeam;
     Button btn_next;
     DbHelper dbHelper;
+    String spTeam;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +28,6 @@ public class MainActivity extends Activity {
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 
 
-
-
         dbHelper = DbHelper.getInstance(getApplicationContext());
 
         et_name = (EditText) findViewById(R.id.et_name);
@@ -35,6 +36,9 @@ public class MainActivity extends Activity {
         et_userid = (EditText) findViewById(R.id.et_userid);
         et_number = (EditText) findViewById(R.id.et_number);
         btn_next = (Button) findViewById(R.id.btn_next);
+        // addListenerOnSpinnerItemSelection();
+        SpinnerTeam = (Spinner) findViewById(R.id.spinner1);
+        spTeam = SpinnerTeam.getSelectedItem().toString();
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,15 +69,21 @@ public class MainActivity extends Activity {
                 } else {
                     userData.place = "";
                 }
+                if (!spTeam.isEmpty()) {
+                    userData.team = spTeam;
+                } else {
+                    userData.team= "";
+                }
 
                 dbHelper.insertUserDetail(userData);
 
-                Intent intent=new Intent(MainActivity.this,UserDetail.class);
+                Intent intent = new Intent(MainActivity.this, UserDetail.class);
                 startActivity(intent);
 
             }
         });
 
     }
+
 }
 

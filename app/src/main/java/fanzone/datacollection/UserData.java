@@ -11,7 +11,7 @@ import java.io.Serializable;
 
 public class UserData implements Serializable {
 
-    String name,college,place,user_id,number;
+    String name,college,place,user_id,number,team;
 
 
 }
