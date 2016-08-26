@@ -49,8 +49,8 @@ public class DbHelper extends SQLiteOpenHelper {
                 NAME + " TEXT," +
                 COLLEGE + " TEXT," +
                 PLACE + " TEXT," +
-                NUMBER + " TEXT" +
-                TEAMNAME+"TEXT"+
+                NUMBER + " TEXT," +
+                TEAMNAME+ " TEXT"+
                 ")";
         db.execSQL(CREATE_USERDETAIL_TABLE);
 
@@ -63,6 +63,7 @@ public class DbHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
         if (oldVersion != newVersion) {
             // Simplest implementation is to drop all old tables and recreate them
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERdETAIL);
