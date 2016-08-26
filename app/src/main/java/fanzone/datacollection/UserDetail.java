@@ -12,7 +12,7 @@ import android.widget.Button;
 
 public class UserDetail extends Activity implements Listener {
     RecyclerView recyclerView;
-   DataBaseHelper dbHelper;
+    DataBaseHelper dbHelper;
     ListAdapter adapter;
     Button add;
 
@@ -22,7 +22,6 @@ public class UserDetail extends Activity implements Listener {
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.activity_user_detail);
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-
 
         dbHelper = DataBaseHelper.getInstance(getApplicationContext());
 
