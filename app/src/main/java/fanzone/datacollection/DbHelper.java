@@ -122,7 +122,6 @@ public class DbHelper extends SQLiteOpenHelper {
             db.endTransaction();
         }
 
-
     }
 
      /*
