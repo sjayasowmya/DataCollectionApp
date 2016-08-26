@@ -39,7 +39,6 @@ public class UserDetail extends Activity implements Listener {
                 startActivity(add);
             }
         });
-
     }
     @Override
     public void onBackPressed() {
