@@ -187,6 +187,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     }
 
+
     /*
    Delete single row from UserTable
      */
