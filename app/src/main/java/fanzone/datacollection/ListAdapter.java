@@ -63,7 +63,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
 
                 LayoutInflater inflater = LayoutInflater.from(context);
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle("Delete Your Record !!!");
+                builder.setTitle("TNPL");
                 builder.setMessage("Do you want to delete this record?");
                 // builder.setView(subView);
                 AlertDialog alertDialog = builder.create();
@@ -132,17 +132,17 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
                 profession.setText(dataList.get((Integer) view.getTag()).mprofession);
                 education.setText(dataList.get((Integer) view.getTag()).meducation);
 
-                Button back  =(Button) dialog.findViewById(R.id.btn_back);
+               // Button back  =(Button) dialog.findViewById(R.id.btn_back);
                 Button list  =(Button) dialog.findViewById(R.id.btn_list);
 
-                back.setOnClickListener(new View.OnClickListener() {
+               /* back.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent back = new Intent(context,Profile.class);
                         context.startActivity(back);
                         dialog.dismiss();
                     }
-                });
+                });*/
 
                 list.setOnClickListener(new View.OnClickListener() {
                     @Override

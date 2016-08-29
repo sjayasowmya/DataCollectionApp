@@ -10,10 +10,18 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
+
+import fanzone.datacollection.Model.ProfileData;
+
 public class UserDetail extends Activity implements Listener {
     RecyclerView recyclerView;
     DataBaseHelper dbHelper;
     ListAdapter adapter;
+    ProfileData adapters;
     Button add;
 
     @Override
@@ -24,9 +32,24 @@ public class UserDetail extends Activity implements Listener {
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 
         dbHelper = DataBaseHelper.getInstance(getApplicationContext());
+        Firebase ref = new Firebase(Config.FIREBASE_URL);
 
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                System.out.println("Display all the datas..........>"+snapshot.getValue());
+
+
+            }
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                System.out.println("The read failed: " + firebaseError.getMessage());
+            }
+        });
         recyclerView = (RecyclerView) findViewById(R.id.rv_contactlist);
-        adapter = new ListAdapter(this, dbHelper.getAllUser());
+       adapter = new ListAdapter(this, dbHelper.getAllUser());
+
+
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         add = (Button) findViewById(R.id.add);

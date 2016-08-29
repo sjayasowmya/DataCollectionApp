@@ -10,12 +10,27 @@ android {
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
+
+        multiDexEnabled true
+
+        vectorDrawables.useSupportLibrary = true
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_7
+            targetCompatibility JavaVersion.VERSION_1_7
+        }
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    //Add the following block
+    packagingOptions{
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE-FIREBASE.txt'
+        exclude 'META-INF/NOTICE'
+
     }
 }
 
@@ -25,4 +40,9 @@ dependencies {
     compile 'com.android.support:appcompat-v7:24.2.0'
     compile 'com.android.support:recyclerview-v7:24.1.0'
     compile 'com.android.support:design:24.1.1'
+    compile 'com.android.support:multidex:1.0.1'
+    compile 'com.google.android.gms:play-services:9.4.0'
+    //Adding Firebase
+    compile 'com.firebase:firebase-client-android:2.4.0'
 }
+apply plugin: 'com.google.gms.google-services'

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "442765337692",
+    "firebase_url": "https://fandatacollection.firebaseio.com",
+    "project_id": "fandatacollection",
+    "storage_bucket": "fandatacollection.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:442765337692:android:9d3b4e8c2d66ed3e",
+        "android_client_info": {
+          "package_name": "fanzone.datacollection"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "442765337692-1h2sh4mniabgm59upuuur8mj5fnm4n5u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fanzone.datacollection",
+            "certificate_hash": "016184BE6BC4A00C5D3C625BBF5364F38DAB05B0"
+          }
+        },
+        {
+          "client_id": "442765337692-jlek3iuuoqpdqfet6dqpf3nplhnh0lvd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMNjTBbJpdQFv43Mv2XnQZU0tedFqyR1A"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "442765337692-jlek3iuuoqpdqfet6dqpf3nplhnh0lvd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

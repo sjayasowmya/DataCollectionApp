@@ -15,10 +15,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
+
+import fanzone.datacollection.Model.ProfileData;
 
 /**
  * Created by satya on 26/8/16.
@@ -38,6 +44,8 @@ public class Profile extends Activity {
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.activity_profile);
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
+
+        Firebase.setAndroidContext(this);
 
         dbHelper = DataBaseHelper.getInstance(getApplicationContext());
 
@@ -303,7 +311,12 @@ public class Profile extends Activity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+               Firebase ref = new Firebase(Config.FIREBASE_URL);
                userData = new UserData();
+                //Creating Person object
+                final ProfileData profileData = new ProfileData();
+
 
                 userData.msurveyor = surver_name.getText().toString();
                 userData.mlocation = location.getText().toString();
@@ -329,7 +342,43 @@ public class Profile extends Activity {
 
                           dbHelper.insertUserDetail(userData);
 
-                    openDialog();
+
+                          profileData.setSurveyor(userData.msurveyor);
+                          profileData.setLocation(userData.mlocation);
+                          profileData.setSys_time(userData.msys_time);
+                          profileData.setMatch(userData.mmatch);
+                          profileData.setName(userData.mname);
+                          profileData.setGender(userData.mgender);
+                          profileData.setAge(userData.mage);
+                          profileData.setFromloc(userData.mfromloc);
+                          profileData.setPhone(userData.mphone);
+                          profileData.setEmail(userData.memail);
+                          profileData.setFevteam(userData.mfevteam);
+                          profileData.setProfession(userData.mprofession);
+                          profileData.setEducation(userData.meducation);
+
+                          //Storing values to firebase
+                         ref.child("TNPL").push().setValue(profileData);
+
+
+
+                         /* ref.addValueEventListener(new ValueEventListener() {
+                              @Override
+                              public void onDataChange(DataSnapshot snapshot) {
+                                  System.out.println("Display all the datas..........>"+snapshot.getValue());
+
+
+                              }
+                              @Override
+                              public void onCancelled(FirebaseError firebaseError) {
+                                  System.out.println("The read failed: " + firebaseError.getMessage());
+                              }
+                          });*/
+
+
+
+
+                          openDialog();
 
                 }else {
 
@@ -353,16 +402,19 @@ public class Profile extends Activity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Profile.this, UserDetail.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
 
     }
+
   public void openDialog(){
 
       LayoutInflater inflater = LayoutInflater.from(Profile.this);
       final AlertDialog.Builder builder = new AlertDialog.Builder(Profile.this);
-      builder.setTitle("Save Your Information");
+      builder.setTitle("TNPL");
       builder.setMessage("Your Information Saved Successfully.");
       // builder.setView(subView);
       AlertDialog alertDialog = builder.create();
