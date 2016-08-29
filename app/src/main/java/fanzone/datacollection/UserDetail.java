@@ -24,6 +24,8 @@ public class UserDetail extends Activity implements Listener {
     ProfileData adapters;
     Button add;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
