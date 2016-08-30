@@ -18,7 +18,7 @@ public class ProfileData {
     }
 
     public void setSurveyor(String surveyor) {
-        this.name = surveyor;
+        this.surveyor = surveyor;
     }
 
     public String getLocation() {

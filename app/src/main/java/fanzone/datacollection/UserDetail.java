@@ -34,20 +34,7 @@ public class UserDetail extends Activity implements Listener {
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 
         dbHelper = DataBaseHelper.getInstance(getApplicationContext());
-        Firebase ref = new Firebase(Config.FIREBASE_URL);
 
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                System.out.println("Display all the datas..........>"+snapshot.getValue());
-
-
-            }
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-                System.out.println("The read failed: " + firebaseError.getMessage());
-            }
-        });
         recyclerView = (RecyclerView) findViewById(R.id.rv_contactlist);
        adapter = new ListAdapter(this, dbHelper.getAllUser());
 

@@ -25,6 +25,7 @@
         </activity>
         <activity android:name=".UserDetail" />
 
+
     </application>
 
 </manifest>
