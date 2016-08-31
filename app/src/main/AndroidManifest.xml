@@ -22,8 +22,6 @@
         </activity>
         <activity android:name=".Profile"
             android:theme="@style/AppTheme"/>
-        <activity android:name=".UserDetail"
-            android:theme="@style/AppTheme"/>
         <activity android:name=".ProfileDetail"
             android:theme="@style/AppTheme"/>
     </application>

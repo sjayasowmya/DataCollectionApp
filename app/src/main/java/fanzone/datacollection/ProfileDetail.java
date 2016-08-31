@@ -37,7 +37,7 @@ import fanzone.datacollection.models.ProfileData;
 /**
  * Created by satya on 30/8/16.
  */
-public class ProfileDetail extends BaseActivity{
+public class ProfileDetail extends AppCompatActivity{
 
     private FloatingActionButton fab_new_post;
 
