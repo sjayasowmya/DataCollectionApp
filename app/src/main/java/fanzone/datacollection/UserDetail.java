@@ -6,16 +6,27 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 
+import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
+import com.firebase.client.authentication.Constants;
+import com.google.firebase.auth.FirebaseAuth;
+
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import fanzone.datacollection.Model.ProfileData;
+import fanzone.datacollection.models.User;
 
 public class UserDetail extends Activity implements Listener {
     RecyclerView recyclerView;
@@ -29,9 +40,52 @@ public class UserDetail extends Activity implements Listener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+      //  requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.activity_user_detail);
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
+      //  getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
+
+
+       Firebase ref = new Firebase(Config.FIREBASE_URL);
+
+        ref.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    ProfileData profileData = postSnapshot.getValue(ProfileData.class);
+
+                    System.out.println("<-----Display Childs-------"+postSnapshot);
+                    //Adding it to a string
+                    String string = "Address: "+profileData.getLocation();
+                    System.out.println("Hellllloooo------"+string);
+
+                }
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+
+
 
         dbHelper = DataBaseHelper.getInstance(getApplicationContext());
 
@@ -41,6 +95,9 @@ public class UserDetail extends Activity implements Listener {
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+
         add = (Button) findViewById(R.id.add);
 
         add.setOnClickListener(new View.OnClickListener() {
@@ -67,6 +124,25 @@ public class UserDetail extends Activity implements Listener {
         adapter = new ListAdapter(this, dbHelper.getAllUser());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int i = item.getItemId();
+        if (i == R.id.action_logout) {
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(this, SignInActivity.class));
+            finish();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
     }
 }
 

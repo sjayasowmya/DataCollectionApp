@@ -7,11 +7,24 @@ public class ProfileData {
 
     //name and address string
 
-    public  String surveyor,location,match,name,gender,age,fromloc,phone,email,fevteam,profession,education,sys_time;
+    public  String surveyor,location,match,name,gender,age,fromloc,phone,email,favteam,profession,education,sys_time;
+    public String username;
 
     public ProfileData() {
       /*Blank default constructor essential for Firebase*/
     }
+
+   // public ProfileData(String username) {
+     //   this.username = username;
+  //  }
+
+   /* public String getUsername(){
+        return username;
+    }
+
+    public void setUsername(String username){
+        this.username = username;
+    }*/
     //Getters and setters
     public String getSurveyor() {
         return surveyor;
@@ -81,12 +94,12 @@ public class ProfileData {
         this.email = email;
     }
 
-    public String getFevteam() {
-        return fevteam;
+    public String getFavteam() {
+        return favteam;
     }
 
-    public void setFevteam(String fevteam) {
-        this.fevteam = fevteam;
+    public void setFavteam(String favteam) {
+        this.favteam = favteam;
     }
     public String getProfession() {
         return profession;

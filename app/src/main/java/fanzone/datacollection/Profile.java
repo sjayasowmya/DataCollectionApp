@@ -4,311 +4,162 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 import fanzone.datacollection.Model.ProfileData;
+import fanzone.datacollection.activity.*;
 
 /**
  * Created by satya on 26/8/16.
  */
-public class Profile extends Activity {
+public class Profile extends AppCompatActivity {
 
-    private EditText surver_name, location, match, name, gender, age, from_loc, phone, email, fev_team, profession, education;
-    DataBaseHelper dbHelper;
+    private EditText surver_name, name, age, from_loc, phone, email;
+    private Spinner location,match,gender,fev_team,profession,education;
+
+     private FloatingActionButton mSubmitButton;
+    private SharedPreferences sharedpreferences;
+    //DataBaseHelper dbHelper;
     private Button save, list;
     private String sp_location,sp_match,sp_gender,sp_fevTeam,sp_profession,sp_education,sys_time;
+    private String surveyorName;
     UserData userData;
     private Calendar cal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+       // requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.activity_profile);
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
+      //  getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 
         Firebase.setAndroidContext(this);
 
-        dbHelper = DataBaseHelper.getInstance(getApplicationContext());
+      //  dbHelper = DataBaseHelper.getInstance(getApplicationContext());
 
         // edittext
 
+
+
         surver_name = (EditText) findViewById(R.id.surver_name);
-        location = (EditText) findViewById(R.id.location);
-        match = (EditText) findViewById(R.id.match);
+        location = (Spinner) findViewById(R.id.location);
+        match = (Spinner) findViewById(R.id.match);
         name = (EditText) findViewById(R.id.name);
-        gender = (EditText) findViewById(R.id.gender);
+        gender = (Spinner) findViewById(R.id.gender);
         age = (EditText) findViewById(R.id.age);
         from_loc = (EditText) findViewById(R.id.from_loc);
         phone = (EditText) findViewById(R.id.phone);
         email = (EditText) findViewById(R.id.email);
-        fev_team = (EditText) findViewById(R.id.fev_team);
-        profession = (EditText) findViewById(R.id.profession);
-        education = (EditText) findViewById(R.id.education);
+        fev_team = (Spinner) findViewById(R.id.fev_team);
+        profession = (Spinner) findViewById(R.id.profession);
+        education = (Spinner) findViewById(R.id.education);
 
-        location.setOnClickListener(new View.OnClickListener() {
 
-            // add button listener
+        sharedpreferences =getSharedPreferences("User", MODE_WORLD_READABLE);
+        surveyorName = sharedpreferences.getString("surveyorName", "surveyorName");
+        String[] separated = surveyorName.split("@");
+        surveyorName = separated[0];
+        //System.out.println("SurveName ---------->>>> "+surveyorName);
+        if(!surveyorName.equalsIgnoreCase(""))
+        {
+            surver_name.setText(surveyorName); /* Edit the value here*/
+        }
+        // ADAPTER FOR SPINNER
 
-            @Override
-            public void onClick(View view) {
+        //location
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> locadapter = ArrayAdapter.createFromResource(Profile.this,
+                R.array.location, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        locadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        location.setAdapter(locadapter);
 
+        //match
 
 
-                final  String[] spinnerValues = {"MAC,Chennai","NPR College,Dindigul","ICL Ground,Tirunelveli"};
+        ArrayAdapter<CharSequence> matchadapter = ArrayAdapter.createFromResource(Profile.this,
+                R.array.match, android.R.layout.simple_spinner_item);
+        matchadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        match.setAdapter(matchadapter);
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(Profile.this);
-                builder.setTitle("Select Location");
-                builder.setSingleChoiceItems(spinnerValues, -1,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int position) {
+        //gender
 
+        ArrayAdapter<CharSequence> genadapter = ArrayAdapter.createFromResource(Profile.this,
+                R.array.gender, android.R.layout.simple_spinner_item);
+        genadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        gender.setAdapter(genadapter);
 
-                                sp_location  = spinnerValues[position];
+        //favourite team
 
-                                location.setText(sp_location);
 
-                                dialog.cancel();
+        ArrayAdapter<CharSequence> favadapter = ArrayAdapter.createFromResource(Profile.this,
+                R.array.fav_team, android.R.layout.simple_spinner_item);
 
-                            }
-                        });
-                builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
+        favadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        fev_team.setAdapter(favadapter);
 
-                        dialog.dismiss();
-                        // finish();
-                    }
-                });
-                AlertDialog alert = builder.create();
-                alert.setCanceledOnTouchOutside(false);
-                alert.show();
-            }
-        });
 
-        match.setOnClickListener(new View.OnClickListener() {
 
-            // add button listener
+        // proffesion
 
-            @Override
-            public void onClick(View view) {
+        ArrayAdapter<CharSequence> profadapter = ArrayAdapter.createFromResource(Profile.this,
+                R.array.profession, android.R.layout.simple_spinner_item);
+        profadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        profession.setAdapter(profadapter);
 
+        // education
+        ArrayAdapter<CharSequence> eduadapter = ArrayAdapter.createFromResource(Profile.this,
+                R.array.education, android.R.layout.simple_spinner_item);
+        eduadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        education.setAdapter(eduadapter);
 
-
-                final  String[] spinnerValues = {"Chepauk vs Thoothukudi","Tiruvallur vs Karaikudi","Coimbatore vs Kancheepuram",
-                                                  "Dindigul vs Madurai"};
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(Profile.this);
-                builder.setTitle("Select Match");
-                builder.setSingleChoiceItems(spinnerValues, -1,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int position) {
-
-
-                                sp_match  = spinnerValues[position];
-
-                                match.setText(sp_match);
-
-                                dialog.cancel();
-
-                            }
-                        });
-                builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        dialog.dismiss();
-                        // finish();
-                    }
-                });
-                AlertDialog alert = builder.create();
-                alert.setCanceledOnTouchOutside(false);
-                alert.show();
-            }
-        });
-        gender.setText("Male");
-
-        gender.setOnClickListener(new View.OnClickListener() {
-
-            // add button listener
-
-            @Override
-            public void onClick(View view) {
-
-
-
-                final  String[] spinnerValues = {"Male","Female"};
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(Profile.this);
-                builder.setTitle("Select Gender");
-                builder.setSingleChoiceItems(spinnerValues, -1,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int position) {
-
-
-                                sp_gender  = spinnerValues[position];
-
-                                gender.setText(sp_gender);
-
-                                dialog.cancel();
-
-                            }
-                        });
-                builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        dialog.dismiss();
-                        // finish();
-                    }
-                });
-                AlertDialog alert = builder.create();
-                alert.setCanceledOnTouchOutside(false);
-                alert.show();
-            }
-        });
-
-        fev_team.setOnClickListener(new View.OnClickListener() {
-
-            // add button listener
-
-            @Override
-            public void onClick(View view) {
-
-                final  String[] spinnerValues = {"Chepauk","Coimbatore","Dindigul","Karaikudi","Kancheepuram","Madurai","Tiruvallur","Thoothukudi"};
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(Profile.this);
-                builder.setTitle("Select Team");
-                builder.setSingleChoiceItems(spinnerValues, -1,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int position) {
-
-
-                                sp_fevTeam  = spinnerValues[position];
-
-                                fev_team.setText(sp_fevTeam);
-
-                                dialog.cancel();
-
-                            }
-                        });
-                builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        dialog.dismiss();
-                        // finish();
-                    }
-                });
-                AlertDialog alert = builder.create();
-                alert.setCanceledOnTouchOutside(false);
-                alert.show();
-            }
-        });
-
-        profession.setOnClickListener(new View.OnClickListener() {
-
-            // add button listener
-
-            @Override
-            public void onClick(View view) {
-
-                final  String[] spinnerValues = {"Business","House wife","Service","Student","Sports"};
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(Profile.this);
-                builder.setTitle("Select Profession");
-                builder.setSingleChoiceItems(spinnerValues, -1,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int position) {
-
-
-                                sp_profession  = spinnerValues[position];
-
-                                profession.setText(sp_profession);
-
-                                dialog.cancel();
-
-                            }
-                        });
-                builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        dialog.dismiss();
-                        // finish();
-                    }
-                });
-                AlertDialog alert = builder.create();
-                alert.setCanceledOnTouchOutside(false);
-                alert.show();
-            }
-        });
-
-        education.setOnClickListener(new View.OnClickListener() {
-
-            // add button listener
-
-            @Override
-            public void onClick(View view) {
-
-
-
-                final  String[] spinnerValues = {"Under X","X","XII","Under Graduate","Post Graduate"};
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(Profile.this);
-                builder.setTitle("Select Education");
-                builder.setSingleChoiceItems(spinnerValues, -1,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int position) {
-
-
-                                sp_education  = spinnerValues[position];
-
-                                education.setText(sp_education);
-
-                                dialog.cancel();
-
-                            }
-                        });
-                builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        dialog.dismiss();
-                        // finish();
-                    }
-                });
-                AlertDialog alert = builder.create();
-                alert.setCanceledOnTouchOutside(false);
-                alert.show();
-            }
-        });
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
-         sys_time = sdf.format(new Date());
+        sys_time = sdf.format(new Date());
 
 
+        //  mTitleField = (EditText) findViewById(R.id.field_title);
+        //   mBodyField = (EditText) findViewById(R.id.field_body);
+        mSubmitButton = (FloatingActionButton) findViewById(R.id.fab_submit_post);
+       // mListButton = (FloatingActionButton) findViewById(R.id.fab_list);
 
        // System.out.println("----Sys-time------"+sys_time);
         // button
 
-        save = (Button) findViewById(R.id.btn_save);
-        list = (Button) findViewById(R.id.btn_list);
+       // save = (Button) findViewById(R.id.btn_save);
+       // list = (Button) findViewById(R.id.btn_list);
 
-        save.setOnClickListener(new View.OnClickListener() {
+        mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -317,30 +168,28 @@ public class Profile extends Activity {
                 //Creating Person object
                 final ProfileData profileData = new ProfileData();
 
-
                 userData.msurveyor = surver_name.getText().toString();
-                userData.mlocation = location.getText().toString();
-                userData.mmatch = match.getText().toString();
+                userData.mlocation  = location.getSelectedItem().toString();
+                userData.mmatch  = match.getSelectedItem().toString();
                 userData.mname = name.getText().toString();
-                userData.mgender= gender.getText().toString();
+                userData.mgender= gender.getSelectedItem().toString();
                 userData.mage = age.getText().toString();
                 userData.mfromloc = from_loc.getText().toString();
                 userData.mphone = phone.getText().toString();
                 userData.memail = email.getText().toString();
-                userData.mfevteam = fev_team.getText().toString();
-                userData.mprofession = profession.getText().toString();
-                userData.meducation = education.getText().toString();
+                userData.mfavteam = fev_team.getSelectedItem().toString();
+                userData.mprofession = profession.getSelectedItem().toString();
+                userData.meducation = education.getSelectedItem().toString();
                 userData.msys_time = sys_time;
 
-
-                      if(!surver_name.getText().toString().isEmpty() && !location.getText().toString().isEmpty()
-                        && !match.getText().toString().isEmpty() && !name.getText().toString().isEmpty()
-                        && !gender.getText().toString().isEmpty() && !age.getText().toString().isEmpty()
+                      if(!surver_name.getText().toString().isEmpty() && !location.getSelectedItem().toString().isEmpty()
+                        && !match.getSelectedItem().toString().isEmpty() && !name.getText().toString().isEmpty()
+                        && !gender.getSelectedItem().toString().isEmpty() && !age.getText().toString().isEmpty()
                         && !from_loc.getText().toString().isEmpty() && !phone.getText().toString().isEmpty()
-                        && !email.getText().toString().isEmpty() && !fev_team.getText().toString().isEmpty()
-                        && !profession.getText().toString().isEmpty() && !education.getText().toString().isEmpty()) {
+                        && !email.getText().toString().isEmpty() && !fev_team.getSelectedItem().toString().isEmpty()
+                        && !profession.getSelectedItem().toString().isEmpty() && !education.getSelectedItem().toString().isEmpty()) {
 
-                          dbHelper.insertUserDetail(userData);
+                         // dbHelper.insertUserDetail(userData);
 
 
                           profileData.setSurveyor(userData.msurveyor);
@@ -353,14 +202,12 @@ public class Profile extends Activity {
                           profileData.setFromloc(userData.mfromloc);
                           profileData.setPhone(userData.mphone);
                           profileData.setEmail(userData.memail);
-                          profileData.setFevteam(userData.mfevteam);
+                          profileData.setFavteam(userData.mfavteam);
                           profileData.setProfession(userData.mprofession);
                           profileData.setEducation(userData.meducation);
 
                           //Storing values to firebase
                          ref.child("TNPL").push().setValue(profileData);
-
-
 
 
 
@@ -385,7 +232,7 @@ public class Profile extends Activity {
 
             }
         });
-        list.setOnClickListener(new View.OnClickListener() {
+       /* mListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Profile.this, UserDetail.class);
@@ -393,7 +240,7 @@ public class Profile extends Activity {
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
-        });
+        });*/
 
     }
 
@@ -409,8 +256,8 @@ public class Profile extends Activity {
       builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
           @Override
           public void onClick(DialogInterface dialog, int which) {
-
-
+              startActivity(new Intent(getApplicationContext(), ProfileDetail.class));
+              finish();
           }
       });
 
@@ -426,7 +273,24 @@ public class Profile extends Activity {
 
   }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int i = item.getItemId();
+        if (i == R.id.action_logout) {
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(this, SignInActivity.class));
+            finish();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
 }
 
 

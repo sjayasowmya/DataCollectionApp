@@ -127,7 +127,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             values.put(FROMLOCATION,userData.mfromloc);
             values.put(PHONE,userData.mphone);
             values.put(EMAIL,userData.memail);
-            values.put(FEVTEAM,userData.mfevteam);
+            values.put(FEVTEAM,userData.mfavteam);
             values.put(PROFESSION,userData.mprofession);
             values.put(EDUCATION,userData.meducation);
             values.put(TIME,userData.msys_time);
@@ -170,7 +170,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                     userData.mfromloc = cursor.getString(cursor.getColumnIndex(FROMLOCATION));
                     userData.mphone = cursor.getString(cursor.getColumnIndex(PHONE));
                     userData.memail = cursor.getString(cursor.getColumnIndex(EMAIL));
-                    userData.mfevteam = cursor.getString(cursor.getColumnIndex(FEVTEAM));
+                    userData.mfavteam = cursor.getString(cursor.getColumnIndex(FEVTEAM));
                     userData.mprofession = cursor.getString(cursor.getColumnIndex(PROFESSION));
                     userData.meducation=cursor.getString(cursor.getColumnIndex(EDUCATION));
                     userData.msys_time=cursor.getString(cursor.getColumnIndex(TIME));

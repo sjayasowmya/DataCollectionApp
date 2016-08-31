@@ -7,14 +7,10 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@android:color/darker_gray"
+    android:background="@android:color/white"
     tools:context="fanzone.datacollection.Profile">
 
-    <ScrollView
-        android:layout_centerHorizontal="true"
-        android:overScrollMode="never"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+
         <LinearLayout
             android:id="@+id/layer_one"
             android:layout_width="match_parent"
@@ -34,7 +30,6 @@
                     android:id="@+id/surver_name"
                     style="@style/CustomTextView"
                     android:singleLine="true"
-                    android:inputType="text"
                     android:scrollHorizontally="true"
                     android:text="Surveyor Name"/>
 
@@ -43,7 +38,6 @@
                     android:layout_below="@+id/surver_name"
                     style="@style/CustomTextView"
                     android:singleLine="true"
-                    android:inputType="text"
                     android:scrollHorizontally="true"
                     android:text="Surveyor Date"/>
                 <TextView
@@ -290,31 +284,19 @@
                 android:layout_below="@+id/tv_profession"
                 android:text="dd"/>
 
-
-
-            <Button
+            <android.support.design.widget.FloatingActionButton
                 android:id="@+id/btn_list"
-                android:layout_marginTop="50dp"
-                android:layout_below="@+id/tv_education"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginBottom="20dp"
-                android:text="List"
-                android:textColor="#ffffff"
-                android:textSize="16sp"
-                android:textAllCaps="true"
-                android:background="@drawable/custom_button"
-                android:layout_width="150dp"
-                android:layout_height="45dp" />
+                android:clickable="true"
+                android:layout_margin="16dp"
+                android:src="@drawable/ic_navigation_check_24"/>
 
-            <TextView
-                android:id="@+id/exxx"
-                style="@style/CustomTextView"
-                android:layout_below="@+id/btn_list"
-                android:singleLine="true"
-                android:inputType="text"
-                android:scrollHorizontally="true"
-                android:text=""/>
+
+
         </RelativeLayout>
         </LinearLayout>
-    </ScrollView>
+
 </RelativeLayout>

@@ -4,11 +4,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context="fanzone.datacollection.Profile">
+    tools:context="com.fantain.datacollection.NewPostActivity">
+
+    <!-- <EditText
+         android:id="@+id/field_title"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginBottom="5dp"
+         android:layout_marginLeft="16dp"
+         android:layout_marginRight="16dp"
+         android:layout_marginTop="16dp"
+         android:hint="Title"
+         android:maxLines="1" />
+
+     <EditText
+         android:id="@+id/field_body"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_below="@+id/field_title"
+         android:layout_marginBottom="5dp"
+         android:layout_marginLeft="16dp"
+         android:layout_marginRight="16dp"
+         android:layout_marginTop="5dp"
+         android:hint="Write your post..."
+         android:inputType="textMultiLine"
+         android:maxLines="10"
+         android:scrollHorizontally="false" />-->
+
+
 
 
     <ScrollView
         android:layout_centerHorizontal="true"
+        android:layout_above="@+id/fab_submit_post"
         android:overScrollMode="never"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
@@ -26,7 +54,7 @@
                 android:id="@+id/surver_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusable="false"
+                android:imeOptions="actionNext"
                 android:textSize="14sp"
                 android:singleLine="true"
                 android:maxLines="1"
@@ -186,31 +214,36 @@
                 />
 
 
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fab_submit_post"
-                android:layout_below="@+id/education"
-                android:layout_marginTop="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:clickable="true"
-                android:layout_margin="16dp"
-                android:src="@drawable/ic_navigation_check_24"/>
 
             <TextView
-                android:id="@+id/text44"
+                android:id="@+id/exxx"
                 style="@style/CustomTextView"
-                android:layout_below="@+id/fab_submit_post"
+                android:layout_below="@+id/education"
+                android:singleLine="true"
+                android:inputType="text"
                 android:scrollHorizontally="true"
                 android:layout_marginTop="10dp"
                 android:text=""/>
-
-
         </RelativeLayout>
     </ScrollView>
 
 
 
-
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_submit_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_navigation_check_24"/>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_action_view_as_list"/>
 
 </RelativeLayout>

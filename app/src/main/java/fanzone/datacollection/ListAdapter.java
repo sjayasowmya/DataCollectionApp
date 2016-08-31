@@ -128,7 +128,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
                 from_loc.setText(dataList.get((Integer) view.getTag()).mfromloc);
                 phone.setText(dataList.get((Integer) view.getTag()).mphone);
                 email.setText(dataList.get((Integer) view.getTag()).memail);
-                fev_team.setText(dataList.get((Integer) view.getTag()).mfevteam);
+                fev_team.setText(dataList.get((Integer) view.getTag()).mfavteam);
                 profession.setText(dataList.get((Integer) view.getTag()).mprofession);
                 education.setText(dataList.get((Integer) view.getTag()).meducation);
 
