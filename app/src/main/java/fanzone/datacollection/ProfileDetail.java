@@ -28,6 +28,8 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
+
+import com.firebase.client.ValueEventListener;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
@@ -69,7 +71,7 @@ public class ProfileDetail extends AppCompatActivity{
 
         setContentView(R.layout.activity_profile_detail);
         Firebase.setAndroidContext(getApplicationContext());
-
+        Firebase.getDefaultConfig().setPersistenceEnabled(true);
         ac = this;
 
 
@@ -269,7 +271,35 @@ public class ProfileDetail extends AppCompatActivity{
                 @Override
                 public void onClick(View view) {
                     Firebase ref = new Firebase(Config.FIREBASE_URL);
-                    Query queryRef = ref.orderByChild("name").equalTo(name.get(position));
+                    Query queryRef = ref.orderByChild("phone").equalTo(phone.get(position));
+
+                    queryRef.removeEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+
+                        }
+
+                        @Override
+                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                        }
+
+                        @Override
+                        public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                        }
+
+                        @Override
+                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(FirebaseError firebaseError) {
+
+                        }
+                    });
 
                 }
             });
