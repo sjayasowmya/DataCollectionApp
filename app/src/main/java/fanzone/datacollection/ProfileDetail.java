@@ -19,7 +19,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -33,12 +32,12 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
-import fanzone.datacollection.Model.ProfileData;
+import fanzone.datacollection.models.ProfileData;
 
 /**
  * Created by satya on 30/8/16.
  */
-public class ProfileDetail extends AppCompatActivity{
+public class ProfileDetail extends BaseActivity{
 
     private FloatingActionButton fab_new_post;
 
@@ -182,7 +181,6 @@ public class ProfileDetail extends AppCompatActivity{
         }
         public View getView(final int position, View convertView, ViewGroup parent) {
 
-
             final ViewHolder vh;
            // inflater= LayoutInflater.from(ac);
             vh = new ViewHolder();
@@ -191,10 +189,10 @@ public class ProfileDetail extends AppCompatActivity{
             vh.viewgroup=parent;
             if (convertView == null) {
             // This a new view we inflate the new layout
-                LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                LayoutInflater inflater = (LayoutInflater) ac.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView=inflater.inflate(R.layout.profile_item_list, null);
             }
-            convertView=inflater.inflate(R.layout.profile_item_list, null);
+          //  convertView=inflater.inflate(R.layout.profile_item_list, null);
 
             vh.pics = (ImageView)convertView.findViewById(R.id.comment_photo);
 

@@ -1,4 +1,4 @@
-package fanzone.datacollection.activity;
+package fanzone.datacollection;
 
 import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;

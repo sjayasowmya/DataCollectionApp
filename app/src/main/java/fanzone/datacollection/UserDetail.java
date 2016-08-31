@@ -6,27 +6,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
-import com.firebase.client.authentication.Constants;
 import com.google.firebase.auth.FirebaseAuth;
 
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import fanzone.datacollection.Model.ProfileData;
-import fanzone.datacollection.models.User;
+import fanzone.datacollection.models.ProfileData;
 
 public class UserDetail extends Activity implements Listener {
     RecyclerView recyclerView;

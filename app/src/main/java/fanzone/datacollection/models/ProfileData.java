@@ -1,4 +1,4 @@
-package fanzone.datacollection.Model;
+package fanzone.datacollection.models;
 
 /**
  * Created by satya on 29/8/16.
