@@ -71,7 +71,8 @@ public class ProfileDetail extends AppCompatActivity{
 
         setContentView(R.layout.activity_profile_detail);
         Firebase.setAndroidContext(getApplicationContext());
-        Firebase.getDefaultConfig().setPersistenceEnabled(true);
+
+
         ac = this;
 
 
@@ -88,8 +89,11 @@ public class ProfileDetail extends AppCompatActivity{
             }
         });
 
+        call_firebase(); // fetch data from fire base
 
-        handler.post( new Runnable() {
+        profileList.setAdapter(new ImageAdapter(ac, name, email));
+
+       /* handler.post( new Runnable() {
 
             @Override
             public void run() {
@@ -97,10 +101,10 @@ public class ProfileDetail extends AppCompatActivity{
                 new Download().execute();
             }
         });
-
+*/
     }
 
-
+/*
     private class Download extends AsyncTask<Void, Void, Void> {
 
         @Override
@@ -144,7 +148,7 @@ public class ProfileDetail extends AppCompatActivity{
         }
 
 
-    }
+    }*/
 
 
     public class ImageAdapter extends BaseAdapter {
@@ -207,7 +211,7 @@ public class ProfileDetail extends AppCompatActivity{
             System.out.println("Display name--2222---->"+name.get(position));
             vh.display = (ImageView) convertView.findViewById(R.id.iv_display);
 
-            vh.delete = (ImageView) convertView.findViewById(R.id.iv_delete);
+         //   vh.delete = (ImageView) convertView.findViewById(R.id.iv_delete);
             vh.display.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -266,8 +270,8 @@ public class ProfileDetail extends AppCompatActivity{
 
                 }
             });
-
-            vh.delete.setOnClickListener(new View.OnClickListener() {
+          //  https://github.com/sjayasowmya/DataCollectionApp
+            /*vh.delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Firebase ref = new Firebase(Config.FIREBASE_URL);
@@ -303,7 +307,7 @@ public class ProfileDetail extends AppCompatActivity{
 
                 }
             });
-
+*/
 
 //
           //  System.out.println("Display name------>"+name.get(position));

@@ -14,7 +14,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".SignInActivity"
-            android:windowSoftInputMode="adjustPan|adjustResize" >
+            android:theme="@style/AppTheme"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -23,6 +24,7 @@
         <activity android:name=".Profile"
             android:theme="@style/AppTheme"/>
         <activity android:name=".ProfileDetail"
+            android:windowSoftInputMode="adjustPan|adjustResize"
             android:theme="@style/AppTheme"/>
     </application>
 
